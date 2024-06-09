@@ -8,11 +8,12 @@ app.listen(3000, () => {
 
 app.use(express.json())
 
+//ruta raiz
 app.get("/", (req, res) => {
    res.sendFile(__dirname + "/index.html")
 })
 
-// GET /usuarios
+// ruta GET /usuarios para obtener todos los usuarios
 app.get('/usuarios', async (req, res) => {
    try {
       const response = await getUsuarios()
@@ -25,7 +26,7 @@ app.get('/usuarios', async (req, res) => {
    }
 })
 
-// POST /usuario
+// ruta POST /usuario para crear un nuevo usuario
 app.post("/usuario", async (req, res) => {
    const payload = req.body
    console.log(payload)
@@ -50,6 +51,7 @@ app.post("/usuario", async (req, res) => {
    }
 })
 
+//ruta PUT /usuario para editar un usuario
 app.put("/usuario", async (req, res) => {
    const { id } = req.query
    const payload = req.body
@@ -62,13 +64,13 @@ app.put("/usuario", async (req, res) => {
    } catch (error) {
       res.statusCode = 500
       res.json({
-         message: 'Algo salio mal, intentelo más tarde',
+         message: 'No fue posible edita el usuario',
          error: error
       })
    }
 })
 
-// DELETE /usuario?id=2
+// ruta DELETE /usuario para eliminar un usuario
 app.delete("/usuario", async (req, res) => {
    const payload = req.query
    try {
@@ -77,10 +79,11 @@ app.delete("/usuario", async (req, res) => {
       res.json({ message: "Usuario Eliminado" })
    } catch (error) {
       res.statusCode = 500
-      res.json({ error: "algo salió mal, intentalo más tarde" })
+      res.json({ error: "No fuee posible eliminar eel usuario" })
    }
 })
 
+//ruta POST /transferencia para crear una nueva transferencia
 app.post("/transferencia", async (req, res) => {
       const payload = req.body;
       const fecha = new Date();
@@ -108,6 +111,7 @@ app.post("/transferencia", async (req, res) => {
    }
 })
 
+//ruta GET /transfeerencia para obtener todas las transferencias
 app.get("/transferencias", async (req, res) => {
    try {
       const result = await getTransferencias()
